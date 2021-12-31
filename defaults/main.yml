@@ -1,0 +1,28 @@
+---
+# defaults file for vscode
+
+vscode_app_name: code
+vscode_desired_state: present
+vscode_repo_desired_state: present
+
+# For Debian/Ubuntu Family
+vscode_debian_pre_reqs:
+  - apt-transport-https
+  - curl
+  - ca-certificates
+  - lsb-release
+  - gnupg
+vscode_debian_pre_reqs_desired_state: present
+vscode_debian_gpg_key: https://packages.microsoft.com/keys/microsoft.asc
+vscode_debian_repo: "deb [arch={{ ansible_architecture }}] https://packages.microsoft.com/repos/{{ vscode_app_name }} stable main"
+vscode_debian_repo_when_x86_64: "deb [arch=amd64] https://packages.microsoft.com/repos/{{ vscode_app_name }} stable main"
+vscode_debian_repo_filename: vscode
+
+# For EL Family
+vscode_el_gpg_key: https://packages.microsoft.com/keys/microsoft.asc
+vscode_el_repo_name: code
+vscode_el_repo_description: Visual Studio Code
+vscode_el_repo: https://packages.microsoft.com/yumrepos/vscode
+vscode_el_repo_filename: vscode
+vscode_el_repo_gpgcheck: yes
+vscode_el_repo_enabled: yes

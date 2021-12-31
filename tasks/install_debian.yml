@@ -1,0 +1,36 @@
+---
+# tasks file for vscode | Debian/Ubuntu Family
+
+- name: Debian/Ubuntu Family | Installing {{ vscode_debian_pre_reqs }} for {{ vscode_app_name }} .
+  apt:
+    name: "{{ vscode_debian_pre_reqs }}"
+    state: "{{ vscode_debian_pre_reqs_desired_state }}"
+    force_apt_get: yes
+
+- name: Debian/Ubuntu Family | Add gpg signing key for {{ vscode_app_name }}
+  apt_key:
+    url: "{{ vscode_debian_gpg_key }}"
+    state: present
+
+- name: Debian/Ubuntu Family | Adding repository {{ vscode_debian_repo }}
+  apt_repository:
+    repo: "{{ vscode_debian_repo }}"
+    state: "{{ vscode_repo_desired_state }}"
+    filename: "{{ vscode_debian_repo_filename }}"
+    update_cache: yes
+  when: ansible_architecture != 'x86_64'
+
+- name: Debian/Ubuntu Family | Adding repository {{ vscode_debian_repo_when_x86_64 }}
+  apt_repository:
+    repo: "{{ vscode_debian_repo_when_x86_64 }}"
+    state: "{{ vscode_repo_desired_state }}"
+    filename: "{{ vscode_debian_repo_filename }}"
+    update_cache: yes
+  when: ansible_architecture == 'x86_64'
+
+- name: Debian/Ubuntu Family | Installing {{ vscode_app_name }}
+  apt:
+    name: "{{ vscode_app_name }}"
+    state: "{{ vscode_desired_state }}"
+    force_apt_get: yes
+    update_cache: yes
