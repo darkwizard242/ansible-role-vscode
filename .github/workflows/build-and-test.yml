@@ -34,7 +34,7 @@ jobs:
     - name: SonarCloud Scan
       uses: sonarsource/sonarcloud-github-action@master
       with:
-        projectBaseDir: 'darkwizard242.awless'
+        projectBaseDir: 'darkwizard242.vscode'
         args: >
           -Dsonar.projectVersion=${{ github.ref }}_${{ github.run_number }}
       env:
@@ -56,7 +56,7 @@ jobs:
     - name: Checkout source code
       uses: actions/checkout@v2
       with:
-        path: 'darkwizard242.awless'
+        path: 'darkwizard242.vscode'
 
     - name: Set up Python 3.10.0
       uses: actions/setup-python@v2
@@ -70,7 +70,7 @@ jobs:
         pip3 install -U pip wheel ansible molecule[docker] docker ansible-lint flake8 pytest-testinfra
 
     - name: Execute Molecule test of role for ${{ matrix.IMAGE }}
-      working-directory: 'darkwizard242.awless'
+      working-directory: 'darkwizard242.vscode'
       run: DISTRO=${{ matrix.IMAGE }} molecule test
       env:
         PY_COLORS: '1'
