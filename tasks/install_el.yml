@@ -2,7 +2,7 @@
 # tasks file for vscode | EL Family
 
 - name: EL Family | Adding repository {{ vscode_el_repo }}
-  yum_repository:
+  ansible.builtin.yum_repository:
     name: "{{ vscode_el_repo_name }}"
     description: "{{ vscode_el_repo_description }}"
     baseurl: "{{ vscode_el_repo }}"
@@ -13,7 +13,7 @@
     state: "{{ vscode_repo_desired_state }}"
 
 - name: EL Family | Installing {{ vscode_app_name }}
-  yum:
+  ansible.builtin.yum:
     name: "{{ vscode_app_name }}"
     state: "{{ vscode_desired_state }}"
     update_cache: yes
