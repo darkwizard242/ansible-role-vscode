@@ -7,10 +7,18 @@
     state: "{{ vscode_debian_pre_reqs_desired_state }}"
     force_apt_get: yes
 
-- name: Debian/Ubuntu Family | Add gpg signing key for {{ vscode_app_name }}
-  ansible.builtin.apt_key:
+- name: Debian/Ubuntu Family | Create keyrings directory
+  ansible.builtin.file:
+    path: /etc/apt/keyrings
+    state: directory
+    mode: '0755'
+
+- name: Debian/Ubuntu Family | Download GPG key for {{ vscode_app_name }}
+  ansible.builtin.get_url:
     url: "{{ vscode_debian_gpg_key }}"
-    state: present
+    dest: /etc/apt/keyrings/microsoft.asc
+    mode: '0644'
+    force: true
 
 - name: Debian/Ubuntu Family | Adding repository {{ vscode_debian_repo }}
   ansible.builtin.apt_repository:
