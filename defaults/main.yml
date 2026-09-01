@@ -14,8 +14,8 @@ vscode_debian_pre_reqs:
   - gnupg
 vscode_debian_pre_reqs_desired_state: present
 vscode_debian_gpg_key: https://packages.microsoft.com/keys/microsoft.asc
-vscode_debian_repo: "deb [arch={{ ansible_architecture }}] https://packages.microsoft.com/repos/{{ vscode_app_name }} stable main"
-vscode_debian_repo_when_x86_64: "deb [arch=amd64] https://packages.microsoft.com/repos/{{ vscode_app_name }} stable main"
+vscode_debian_repo: "deb [arch={{ ansible_architecture }} signed-by=/etc/apt/keyrings/microsoft.asc] https://packages.microsoft.com/repos/{{ vscode_app_name }} stable main"
+vscode_debian_repo_when_x86_64: "deb [arch=amd64 signed-by=/etc/apt/keyrings/microsoft.asc] https://packages.microsoft.com/repos/{{ vscode_app_name }} stable main"
 vscode_debian_repo_filename: vscode
 
 # For EL Family
